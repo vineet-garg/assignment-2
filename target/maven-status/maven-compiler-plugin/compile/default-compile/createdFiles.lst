@@ -1,0 +1,7 @@
+crypto/webservice/api/PlainInput.class
+crypto/webservice/ServerConfiguration.class
+crypto/webservice/api/PlainOutput.class
+crypto/webservice/ServerResource.class
+crypto/webservice/api/EncryptedInput.class
+crypto/webservice/Server.class
+crypto/webservice/api/EncryptedOutput.class
