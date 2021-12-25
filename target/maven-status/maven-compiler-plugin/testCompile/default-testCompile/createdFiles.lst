@@ -1,0 +1,3 @@
+crypto/webservice/ServerResourceTest.class
+crypto/webservice/services/EncryptionSvcImplTest.class
+crypto/webservice/services/StatsSvcImplTest.class

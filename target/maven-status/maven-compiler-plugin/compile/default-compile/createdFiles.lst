@@ -1,7 +1,12 @@
-crypto/webservice/api/PlainInput.class
+crypto/webservice/api/EncryptedFloat.class
+crypto/webservice/api/PlainInt.class
+crypto/webservice/services/EncryptionSvcImpl.class
+crypto/webservice/services/StatsSvcImpl.class
+crypto/webservice/services/StatsSvc.class
+crypto/webservice/api/EncryptedStats.class
 crypto/webservice/ServerConfiguration.class
-crypto/webservice/api/PlainOutput.class
-crypto/webservice/ServerResource.class
-crypto/webservice/api/EncryptedInput.class
+crypto/webservice/resources/ServerResource.class
 crypto/webservice/Server.class
-crypto/webservice/api/EncryptedOutput.class
+crypto/webservice/services/EncryptionSvc.class
+crypto/webservice/api/PlainStats.class
+crypto/webservice/api/PlainFloat.class
