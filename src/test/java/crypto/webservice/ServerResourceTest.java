@@ -80,5 +80,4 @@ public class ServerResourceTest {
 		    assertEquals(averages[i], svcRes.Decrypt(svcRes.pushRecalculateAndEncrypt(pi).getAvg()).getNum(), 0.9f);
 		}
 	}
-
 }

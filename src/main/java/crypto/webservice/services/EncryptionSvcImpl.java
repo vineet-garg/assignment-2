@@ -25,7 +25,6 @@ public class EncryptionSvcImpl implements EncryptionSvc {
 		byte[] keyValue = DatatypeConverter.parseHexBinary(keyString);
 		key = new SecretKeySpec(keyValue, "AES");
 	}
-	
 
 	public String encrypt(float num) throws IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException {
 		Cipher c1 = Cipher.getInstance("AES/CBC/PKCS5Padding");
