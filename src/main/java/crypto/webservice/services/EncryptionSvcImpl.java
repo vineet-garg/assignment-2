@@ -21,8 +21,7 @@ import crypto.webservice.api.PlainFloat;
 public class EncryptionSvcImpl implements EncryptionSvc {
 	private Key key;
 	
-	public EncryptionSvcImpl() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException{
-		String keyString = "C0BAE23DF8B51807B3E17D21925FADF273A70181E1D81B8EDE6C76A5C1F1716E";
+	public EncryptionSvcImpl(String keyString) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException{
 		byte[] keyValue = DatatypeConverter.parseHexBinary(keyString);
 		key = new SecretKeySpec(keyValue, "AES");
 	}

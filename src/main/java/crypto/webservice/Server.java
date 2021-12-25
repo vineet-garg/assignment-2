@@ -11,11 +11,11 @@ import io.dropwizard.setup.Environment;
 public class Server extends Application<ServerConfiguration> {
 
 	@Override
-	public void run(ServerConfiguration arg0, Environment arg1) throws Exception {
-		EncryptionSvc encSvc = new EncryptionSvcImpl();
+	public void run(ServerConfiguration config, Environment env) throws Exception {
+		EncryptionSvc encSvc = new EncryptionSvcImpl(config.getKey());
 		StatsSvc statsSvc = new StatsSvcImpl();
 		final ServerResource resource = new ServerResource(statsSvc, encSvc);
-        arg1.jersey().register(resource);
+        env.jersey().register(resource);
 	}
 
 	public static void main(String[] args) throws Exception {

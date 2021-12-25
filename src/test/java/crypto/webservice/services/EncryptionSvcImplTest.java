@@ -16,7 +16,8 @@ public class EncryptionSvcImplTest {
 
 	@Test
 	public void testEncrypt_Decrypt() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		EncryptionSvc esv = new EncryptionSvcImpl();
+		String keyString = "C0BAE23DF8B51807B3E17D21925FADF273A70181E1D81B8EDE6C76A5C1F1716E";
+		EncryptionSvc esv = new EncryptionSvcImpl(keyString);
 		float num = 10.5f;
 		assertEquals(num, esv.decrypt(esv.encrypt(num)).getNum(), 0.0f);
 		

@@ -24,7 +24,8 @@ public class ServerResourceTest {
 	@Test
 	public void testPushAndRecalculate_avg() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException {
 		StatsSvc statsSvc = new StatsSvcImpl();
-		EncryptionSvc eSvc = new EncryptionSvcImpl();
+		String keyString = "C0BAE23DF8B51807B3E17D21925FADF273A70181E1D81B8EDE6C76A5C1F1716E";
+		EncryptionSvc eSvc = new EncryptionSvcImpl(keyString);
 		ServerResource svcRes = new ServerResource(statsSvc, eSvc);
 		int[] input = new int[]{1, 10, 100, 3, 90, 0, 2000, 5000000};
 		float[] averages = new float[]{1, 5.5f, 37f, 28.5f, 40.8f, 34f, 314.85f, 625275.5f};
@@ -38,7 +39,8 @@ public class ServerResourceTest {
 	@Test
 	public void testPushAndRecalculate_sd() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException {
 		StatsSvc statsSvc = new StatsSvcImpl();
-		EncryptionSvc eSvc = new EncryptionSvcImpl();
+		String keyString = "C0BAE23DF8B51807B3E17D21925FADF273A70181E1D81B8EDE6C76A5C1F1716E";
+		EncryptionSvc eSvc = new EncryptionSvcImpl(keyString);
 		ServerResource svcRes = new ServerResource(statsSvc, eSvc);
 		int[] input = new int[]{1, 10, 100, 3, 90, 0, 2000, 5000000};
 		float[] sds = new float[]{0, 4.5f, 44.69f, 41.41f, 44.46f, 43.34f, 689.12f, 1653490.56f};
@@ -52,7 +54,8 @@ public class ServerResourceTest {
 	@Test
 	public void testPushRecalculateAndEncrypt_Decrypt_sd() throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException {
 		StatsSvc statsSvc = new StatsSvcImpl();
-		EncryptionSvc eSvc = new EncryptionSvcImpl();
+		String keyString = "C0BAE23DF8B51807B3E17D21925FADF273A70181E1D81B8EDE6C76A5C1F1716E";
+		EncryptionSvc eSvc = new EncryptionSvcImpl(keyString);
 		ServerResource svcRes = new ServerResource(statsSvc, eSvc);
 		int[] input = new int[]{1, 10, 100, 3, 90, 0, 2000, 5000000};
 		float[] sds = new float[]{0, 4.5f, 44.69f, 41.41f, 44.46f, 43.34f, 689.12f, 1653490.56f};
@@ -66,7 +69,8 @@ public class ServerResourceTest {
 	@Test
 	public void testPushRecalculateAndEncrypt_Decrypt_avg() throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException {
 		StatsSvc statsSvc = new StatsSvcImpl();
-		EncryptionSvc eSvc = new EncryptionSvcImpl();
+		String keyString = "C0BAE23DF8B51807B3E17D21925FADF273A70181E1D81B8EDE6C76A5C1F1716E";
+		EncryptionSvc eSvc = new EncryptionSvcImpl(keyString);
 		ServerResource svcRes = new ServerResource(statsSvc, eSvc);
 		int[] input = new int[]{1, 10, 100, 3, 90, 0, 2000, 5000000};
 		float[] averages = new float[]{1, 5.5f, 37f, 28.5f, 40.8f, 34f, 314.85f, 625275.5f};
