@@ -1,5 +1,6 @@
 package crypto.webservice.resources;
 
+import java.nio.ByteBuffer;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -49,10 +50,14 @@ public class ServerResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public EncryptedStats pushRecalculateAndEncrypt(PlainInt i) throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException {
 		PlainStats ps = pushAndRecalculate(i);
-		String encryptedAvg = encSvc.encrypt(ps.getAvg().getNum());
-		String encryptedSd = encSvc.encrypt(ps.getSd().getNum());
-		EncryptedFloat avg = new EncryptedFloat(encryptedAvg);
-		EncryptedFloat sd = new EncryptedFloat(encryptedSd);
+		
+		byte[] avgBytes = ByteBuffer.allocate(4).putFloat(ps.getAvg().getNum()).array();
+		String encryptedAvg = encSvc.encrypt(avgBytes, "0");
+		
+		byte[] sdBytes = ByteBuffer.allocate(4).putFloat(ps.getSd().getNum()).array();
+		String encryptedSd = encSvc.encrypt(sdBytes, "0");
+		EncryptedFloat avg = new EncryptedFloat(encryptedAvg, "0");
+		EncryptedFloat sd = new EncryptedFloat(encryptedSd, "0");
 		return new EncryptedStats(avg, sd);
 	}
 	
@@ -64,6 +69,8 @@ public class ServerResource {
 	// It says An encrypted Number and at the same time output of API 2. The output of API2 is not a single number
 	// but 2 numbers.
 	public PlainFloat Decrypt(EncryptedFloat s) throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException {
-		return encSvc.decrypt(s.getCipherTxt());
+	byte[] plainBytes = encSvc.decrypt(s.getCipherTxt(), s.getKeyId());
+		float f = ByteBuffer.wrap(plainBytes).getFloat();
+		return new PlainFloat(f);
 	}
 }

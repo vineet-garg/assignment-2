@@ -5,17 +5,22 @@ import javax.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EncryptedFloat {
-	//encrypted float along with algo, keyID and iv encoded in the same string
+	//encrypted float and iv encoded in the same string
 	@NotEmpty
 	private String cipherTxt;
 	
+	// For future use: Now the value will be set to "0" since there is only one key.
+	@NotEmpty
+	private String keyId;
+
 	@NotEmpty
 	public EncryptedFloat(){
 		
 	}
 	
-	public EncryptedFloat(String cipherTxt) {
+	public EncryptedFloat(String cipherTxt, String keyId) {
 		this.cipherTxt = cipherTxt;
+		this.keyId = keyId;
 	}
 
 	@JsonProperty
@@ -26,5 +31,15 @@ public class EncryptedFloat {
 	@JsonProperty
 	public void setCipherTxt(String cipherTxt) {
 		this.cipherTxt = cipherTxt;
+	}
+	
+	@JsonProperty
+	public String getKeyId() {
+		return keyId;
+	}
+
+	@JsonProperty
+	public void setKeyId(String keyId) {
+		this.keyId = keyId;
 	}
 }

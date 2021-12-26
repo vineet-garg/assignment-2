@@ -20,7 +20,5 @@ public class Server extends Application<ServerConfiguration> {
 
 	public static void main(String[] args) throws Exception {
 		new Server().run(args);
-
 	}
-
 }
