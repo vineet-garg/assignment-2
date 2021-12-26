@@ -1,24 +1,24 @@
-Limits:
+## Limits:
 1. Input can be a 32 bit integer. 
 3. No. of requests can be 2^63-1 as count is a long data type
 4. Key is provided through a file based configuration file. Needs to be protected through host hardening.
 5. System supports only one key. APIs are designed to accomodate possible future requirements like: key rotation, re-keying, crypto agility.
 6. Server supports http connection only, Should be enhanced to support https.
 
-Decisions:
+## Decisions:
 Not much about the sesitivity of the data is known, Encryption parameters are chosen to be fulfilling NIST recommendation and based on industry practices.
 The data size is small too.
 1. Key used is AES-256 bit.
 2. Encryption mode used is CBC/PKCS5Padding.
 3. IV size is 128 bit
 
-References:
+## References:
 standard deviation calculation:
 Welford's online algorithm on wikipedia.
 
 
 
-Steps:
+## Steps:
 1. Clone The repo
 2. Build
 ```
