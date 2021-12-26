@@ -10,6 +10,7 @@ public class StatsSvcImpl implements StatsSvc {
 	private float mean = 0;
 
 	public synchronized PlainStats GetRunningStats(int num) {
+		// Welford's online algorithm
 		count ++;
 		float meanDiff = (num - mean)/count;
 		float newMean = mean + meanDiff;
