@@ -13,8 +13,8 @@ The data size is small too.
 3. IV size is 128 bit
 
 ## References:
-standard deviation calculation:
-Welford's online algorithm on wikipedia.
+Standard deviation calculation:
+[Welford's online algorithm on wikipedia](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance) .
 
 
 
