@@ -2,7 +2,7 @@ Limits:
 1. Input can be a 32 bit integer. 
 3. No. of requests can be 2^63-1 as count is a long data type
 4. Key is provided through a file based configuration file. Needs to be protected through host hardening.
-5. System supports only one key. APIs are designed to accomodate possible future requirements like: key rotation, re-keying, crypto agility requirements.
+5. System supports only one key. APIs are designed to accomodate possible future requirements like: key rotation, re-keying, crypto agility.
 6. Server supports http connection only, Should be enhanced to support https.
 
 Steps:
