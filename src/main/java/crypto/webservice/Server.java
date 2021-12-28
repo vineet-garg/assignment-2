@@ -1,5 +1,7 @@
 package crypto.webservice;
 
+import javax.xml.bind.DatatypeConverter;
+
 import crypto.webservice.resources.ServerResource;
 import crypto.webservice.services.EncryptionSvc;
 import crypto.webservice.services.EncryptionSvcImpl;
@@ -12,9 +14,10 @@ public class Server extends Application<ServerConfiguration> {
 
 	@Override
 	public void run(ServerConfiguration config, Environment env) throws Exception {
-		EncryptionSvc encSvc = new EncryptionSvcImpl(config.getKey());
+		byte[] keyValue = DatatypeConverter.parseHexBinary(config.getKey());
+		EncryptionSvc encSvc = new EncryptionSvcImpl(keyValue, config.getKeyId());
 		StatsSvc statsSvc = new StatsSvcImpl();
-		final ServerResource resource = new ServerResource(statsSvc, encSvc);
+		final ServerResource resource = new ServerResource(statsSvc, encSvc, config.getKeyId());
         env.jersey().register(resource);
 	}
 

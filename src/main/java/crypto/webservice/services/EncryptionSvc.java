@@ -11,4 +11,5 @@ import javax.crypto.NoSuchPaddingException;
 public interface EncryptionSvc {
 	public String encrypt(byte[] b, String keyId) throws IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException;
 	public byte[] decrypt(String ciphertext, String keyId) throws IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException;
+    public int getExtraBytes(String keyId);
 }

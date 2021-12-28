@@ -9,7 +9,7 @@ public class EncryptedFloat {
 	@NotEmpty
 	private String cipherTxt;
 	
-	// For future use: Now the value will be set to "0" since there is only one key.
+	// This will be useful while doing a phased rotation of keys.
 	@NotEmpty
 	private String keyId;
 

@@ -11,6 +11,10 @@ public class StatsSvcImpl implements StatsSvc {
 
 	public synchronized PlainStats GetRunningStats(int num) {
 		// Welford's online algorithm
+		if (count == Long.MAX_VALUE) {
+			throw new RuntimeException("Server limit exceeded");
+		}
+		
 		count ++;
 		float meanDiff = (num - mean)/count;
 		float newMean = mean + meanDiff;
