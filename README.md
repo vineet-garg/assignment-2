@@ -7,10 +7,10 @@
 6. Server supports http connection only.
 7. Encrypt/Decrypt functionality is not access controlled or rate limited.
 
-## Decisions:
-Not much about the sesitivity of the data is known, Encryption parameters are as per recommendation (NIST SP-800 38D).
+## Choices:
+Encryption parameters are as per recommendation (NIST SP-800 38D).
 The data size is small: 32 bit Float, the size of overhead (extra bits for IV and authentication Tag) is kept small too balancing between bandwith and security. 
-Access controlling, rate limiting and monitoring Encryption service along with a keyRoation policy can mitigate the security loss due to small values of IV and authentication Tag. They are in general nice for a production use service.
+Access controlling, rate limiting and monitoring Encryption service along with a keyRoation policy can mitigate the security loss due to small values of IV and authentication Tag. They are in general nice for a production use service. A comprehensive threat modelling of the feature, identifying sensitivity level of data being protected will enable making more informed choices.  
 1. Key used is AES-256 bit.
 2. Encryption mode used is GCM/NoPadding.
 3. CBC/PKCSPadding was considered as well but as Decrypt is not access controlled or rate limited, it would be vulnerable to padding ORACLE attack.
@@ -20,8 +20,8 @@ Access controlling, rate limiting and monitoring Encryption service along with a
 
 ## References:
 Standard deviation calculation:
-[Welford's online algorithm on wikipedia](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance).
-[NIST SP-800 38D](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf).
+1. [Welford's online algorithm on wikipedia](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance).
+2. AES-GCM: [NIST SP-800 38D](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf).
 
 
 
