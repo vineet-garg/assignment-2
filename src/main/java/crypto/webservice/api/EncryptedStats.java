@@ -11,8 +11,8 @@ public class EncryptedStats {
 	@NotEmpty
 	private EncryptedFloat sd;
 	
-	public EncryptedStats(){
-		
+	public EncryptedStats() {
+        // Jackson deserialization
 	}
 	
 	public EncryptedStats(EncryptedFloat avg, EncryptedFloat sd) {

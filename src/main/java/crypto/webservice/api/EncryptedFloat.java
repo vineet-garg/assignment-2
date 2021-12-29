@@ -5,17 +5,24 @@ import javax.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EncryptedFloat {
-	//encrypted float and iv encoded in the same string
+	/**
+	 * encrypted float and iv encoded in the same string
+	 */
 	@NotEmpty
 	private String cipherTxt;
 	
-	// This will be useful while doing a phased rotation of keys.
+	/**
+	 * KeyID with which the encryption was done.
+	 * Note: This will be useful while doing a phased rotation of keys 
+	 * or moving to a new algorithm.
+	 */
 	@NotEmpty
 	private String keyId;
 
-	@NotEmpty
+	
 	public EncryptedFloat(){
-		
+        // Jackson deserialization
+
 	}
 	
 	public EncryptedFloat(String cipherTxt, String keyId) {
