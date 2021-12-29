@@ -9,11 +9,11 @@
 
 ## Decisions:
 Not much about the sesitivity of the data is known, Encryption parameters are as per recommendation (NIST SP-800 38D).
-The data size is small 32 bit Float, the size of overhead (extra bits for IV and authentication Tag) is kept small too balancing between bandwith and security. 
-Access controlling, rate limiting and monitoring Encryption service along with a keyRoation policy can mitigate the security loss due to small values of IV and authentication Tag.  
+The data size is small: 32 bit Float, the size of overhead (extra bits for IV and authentication Tag) is kept small too balancing between bandwith and security. 
+Access controlling, rate limiting and monitoring Encryption service along with a keyRoation policy can mitigate the security loss due to small values of IV and authentication Tag. They are in general nice for a production use service.
 1. Key used is AES-256 bit.
 2. Encryption mode used is GCM/NoPadding.
-3. CBC/PKCSPadding was considered but as Decrypt is not access controlled or rate limited, it would be vulnerable to padding ORACLE attack.
+3. CBC/PKCSPadding was considered as well but as Decrypt is not access controlled or rate limited, it would be vulnerable to padding ORACLE attack.
 3. IV size is 96 bit
 4. Authentication tag size is 96 bit
 5. IV is returned in plain along with Encrypted data, with GCM this is considered safe unlike in CBC mode.
@@ -27,7 +27,8 @@ Standard deviation calculation:
 
 ## Steps:
 1. Clone The repo
-2. Build
+   
+3. Build
 ```
 mvn clean
 mvn test
@@ -42,23 +43,23 @@ java -jar /home/vgarg1/workspace/crypto.webservice/target/crypto.webservice-0.0.
 curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"num":2}'  http://0.0.0.0:8080/push-and-recalculate
 ```
 ```
-{"avg":{"num":11.0},"sd":{"num":9.0}}
+{"avg":{"num":10.0},"sd":{"num":10.0}}
 ```
 ```
 curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"num":20}'  http://0.0.0.0:8080/push-and-recalculate-encrypt
 ```
 ```
-{"avg":{"cipherTxt":"vNMohECty6at0P078YGWxA==nnbdbATeYWM1a+55vxKsnA=="},"sd":{"cipherTxt":"aABi54a1Db2tMLQvR1e9VQ==YTD9wGTKBs2nmd1vBKj12g=="}}
+{"avg":{"cipherTxt":"AhDjGm/TwOar80AcickyZfAICokOwTPwTqbJZA==","keyId":"0"},"sd":{"cipherTxt":"5EOD9kTkti7XtTN2q6uhVHnQyYDsC1lAaLhNyg==","keyId":"0"}}
 ```
 ```
-curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"cipherTxt":"vNMohECty6at0P078YGWxA==nnbdbATeYWM1a+55vxKsnA=="}'  http://0.0.0.0:8080/decrypt
+curl -H "Accept: aype: application/json" -X POST -d '{"cipherTxt":"AhDjGm/TwOar80AcickyZfAICokOwTPwTqbJZA==","keyId":"0"}'  http://0.0.0.0:8080/decrypt
 ```
 ```
-{"num":20.0}
+{"num":13.333333}
 ```
 ```
-curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"cipherTxt":"aABi54a1Db2tMLQvR1e9VQ==YTD9wGTKBs2nmd1vBKj12g=="}'  http://0.0.0.0:8080/decrypt
+curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"cipherTxt":"5EOD9kTkti7XtTN2q6uhVHnQyYDsC1lAaLhNyg==","keyId":"0"}'  http://0.0.0.0:8080/decrypt
 ```
 ```
-{"num":0.0}
+{"num":9.428091}
 ```
