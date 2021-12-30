@@ -28,7 +28,7 @@ Standard deviation calculation:
 ## Steps:
 0. Install JDK (jdk-17.0.1) and maven (Apache Maven 3.8.4), set $JAVA_HOME
 ```
-   JAVA_HOME=<Path to jdk's parent folder>/jdk-17.0.1
+   export JAVA_HOME=<Path to jdk's parent folder>/jdk-17.0.1
 ```
 1. Clone The repo
 ```
@@ -45,7 +45,7 @@ mvn package
 ```
 3. Run the server
 ```
-$JAVA_HOMEbin/java -jar $HOME/test/assignment-2/target/crypto.webservice-0.0.1-SNAPSHOT.jar server server.yaml
+$JAVA_HOME/bin/java -jar $HOME/test/assignment-2/target/crypto.webservice-0.0.1-SNAPSHOT.jar server server.yaml
 ```
 4. Sample curl commands and outputs
 ```
