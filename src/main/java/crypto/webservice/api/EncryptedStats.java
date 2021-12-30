@@ -20,11 +20,17 @@ public class EncryptedStats {
 		this.sd = sd;
 	}
 	
+	/**
+	 * @return EncryptedFloat value of running average
+	 */
 	@JsonProperty
 	public EncryptedFloat getAvg() {
 		return this.avg;
 	}
 	
+	/**
+	 * @return EncryptedFloat value of running Standard Deviation
+	 */
 	@JsonProperty
 	public EncryptedFloat getSd(){
 		return this.sd;

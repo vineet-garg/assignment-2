@@ -20,6 +20,9 @@ public class PlainFloat {
 	public PlainFloat(float num) {
 		this.num = num;
 	}
+	/**
+	 * @return float value
+	 */
 	@JsonProperty
 	public float getNum(){
 		return num;

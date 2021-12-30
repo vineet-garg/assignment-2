@@ -12,30 +12,39 @@ public class ServerConfiguration extends Configuration {
 	 * Hexadecimal excoded value of 256 bit AES key
 	 */
 	@NotEmpty
-	
     private String key;
 	
-	/**
-	 * Value of keyId, only "0" supported currently
-	 */
+	
 	@NotEmpty 
 	private String keyId;
 
+	/**
+	 * Value of keyId, eg. "0"
+	 */
 	@JsonProperty
 	public String getKeyId() {
 		return keyId;
 	}
 
+	/**
+	 * Value of keyId, eg. "0"
+	 */
 	@JsonProperty
 	public void setKeyId(String keyId) {
 		this.keyId = keyId;
 	}
 
+	/**
+	 * Hexadecimal excoded value of 256 bit AES key
+	 */
 	@JsonProperty
 	public String getKey() {
 		return key;
 	}
 
+	/**
+	 * Hexadecimal excoded value of 256 bit AES key
+	 */
 	@JsonProperty
 	public void setKey(String key) {
 		this.key = key;

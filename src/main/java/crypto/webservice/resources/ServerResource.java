@@ -25,15 +25,16 @@ import crypto.webservice.services.StatsSvc;
 public class ServerResource {
 	
 	private static final int FLOAT_BASE64_BYTE_SIZE = 8;
-	private final String keyID;
+	private final String currentKeyId
+	;
 	private StatsSvc statsSvc;
 	private EncryptionSvc encSvc;
 	
 	// TODO dependent services can be injected dynamically, just keeping it simple for now
-	public ServerResource(StatsSvc statsSvc, EncryptionSvc encSvc, String keyID) {
+	public ServerResource(StatsSvc statsSvc, EncryptionSvc encSvc, String currentKeyID) {
 		this.statsSvc = statsSvc;
 		this.encSvc = encSvc;
-		this.keyID = keyID;
+		this.currentKeyId = currentKeyID;
 	}
 	
 	/**
@@ -53,7 +54,6 @@ public class ServerResource {
 	}
 	
 	/**
-	 * /**
 	 * Adds input integer into the running metrics and 
 	 * returns new running average and running standard deviation in Encrypted form
 	 * The calculations are done using Welford's online algorithm. Individual numbers
@@ -72,7 +72,7 @@ public class ServerResource {
 		byte[] avgBytes = ByteBuffer.allocate(4).putFloat(ps.getAvg().getNum()).array();
 		String encryptedAvg;
 		try {
-			encryptedAvg = encSvc.encrypt(avgBytes, keyID);
+			encryptedAvg = encSvc.encrypt(avgBytes, currentKeyId);
 		} catch (EncryptionSvcException e) {
 			throw new WebApplicationException(e.getMessage(), e);
 		}
@@ -80,12 +80,12 @@ public class ServerResource {
 		byte[] sdBytes = ByteBuffer.allocate(4).putFloat(ps.getSd().getNum()).array();
 		String encryptedSd;
 		try {
-			encryptedSd = encSvc.encrypt(sdBytes, keyID);
+			encryptedSd = encSvc.encrypt(sdBytes, currentKeyId);
 		} catch (EncryptionSvcException e) {
 			throw new WebApplicationException(e.getMessage(), e);
 		}
-		EncryptedFloat avg = new EncryptedFloat(encryptedAvg, keyID);
-		EncryptedFloat sd = new EncryptedFloat(encryptedSd, keyID);
+		EncryptedFloat avg = new EncryptedFloat(encryptedAvg, currentKeyId);
+		EncryptedFloat sd = new EncryptedFloat(encryptedSd, currentKeyId);
 		return new EncryptedStats(avg, sd);
 	}
 	

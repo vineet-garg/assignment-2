@@ -18,6 +18,9 @@ public class PlainInt {
         // Jackson deserialization
 	}
 	
+	/**
+	 * @return int value
+	 */
 	@JsonProperty
 	public int getNum() {
 		return num;

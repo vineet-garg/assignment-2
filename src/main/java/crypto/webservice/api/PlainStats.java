@@ -19,11 +19,17 @@ public class PlainStats {
 		this.avg = avg;
 		this.sd = sd;
 	}
+	/**
+	 * @return PlainFloat value of running average
+	 */
 	@JsonProperty
 	public PlainFloat getAvg() {
 		return avg;
 	}
 	
+	/**
+	 * @return PlainFloat value of running Standard Deviation
+	 */
 	@JsonProperty
 	public PlainFloat getSd() {
 		return sd;
