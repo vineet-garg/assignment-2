@@ -62,11 +62,11 @@ Tests run: 9, Failures: 0, Errors: 0, Skipped: 0
 ```
 mvn package
 ```
-4. Run the server (server properties like port numbers can be changed in server.yaml file)
+4. Start the server (server properties like port numbers can be changed in server.yaml file, default are 8080 and 8081)
 ```
 $JAVA_HOME/bin/java -jar $HOME/test/assignment-2/target/crypto.webservice-0.0.1-SNAPSHOT.jar server server.yaml
 ```
-5. Sample curl commands and outputs
+5. Sample APIs invocations using curl commands
 ```
 curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"num":2}'  http://0.0.0.0:8080/push-and-recalculate
 ```
