@@ -5,19 +5,18 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Currently a wrapper on int
- * Used as json input/output for APIs
- * More fields cann be added in future while keeping it backward compatible
+ * Currently a wrapper on int used as json input/output for APIs. More fields
+ * can be added in future while keeping it backward compatible
  */
 public class PlainInt {
 
-    @NotNull
-	private Integer num; 
+	@NotNull
+	private Integer num;
 
-	public PlainInt(){
-        // Jackson deserialization
+	public PlainInt() {
+		// Jackson deserialization
 	}
-	
+
 	/**
 	 * @return int value
 	 */
@@ -25,9 +24,9 @@ public class PlainInt {
 	public int getNum() {
 		return num;
 	}
-	
+
 	@JsonProperty
-	public void setNum(int num){
+	public void setNum(int num) {
 		this.num = num;
 	}
 }

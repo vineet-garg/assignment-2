@@ -7,15 +7,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 
 public class ServerConfiguration extends Configuration {
-	
+
 	/**
 	 * Hexadecimal excoded value of 256 bit AES key
 	 */
 	@NotEmpty
-    private String key;
-	
-	
-	@NotEmpty 
+	private String key;
+
+	@NotEmpty
 	private String keyId;
 
 	/**

@@ -15,17 +15,18 @@ public class Server extends Application<ServerConfiguration> {
 	@Override
 	public void run(ServerConfiguration config, Environment env) throws Exception {
 		byte[] keyValue = DatatypeConverter.parseHexBinary(config.getKey());
-		
-		// Exception if any from initialization of Encryption Service is being propodated
+
+		// Exception if any from initialization of Encryption Service is being
+		// propodated
 		EncryptionSvc encSvc = new EncryptionSvcImpl(keyValue, config.getKeyId());
 		StatsSvc statsSvc = new StatsSvcImpl();
 		final ServerResource resource = new ServerResource(statsSvc, encSvc, config.getKeyId());
-        env.jersey().register(resource);
+		env.jersey().register(resource);
 	}
-	
+
 	@Override
 	public String getName() {
-	    return "crypto.webservice";
+		return "crypto.webservice";
 	}
 
 	public static void main(String[] args) throws Exception {
