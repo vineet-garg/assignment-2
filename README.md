@@ -16,7 +16,7 @@ Access controlling, rate limiting and monitoring Encryption service along with a
 3. CBC/PKCSPadding was considered as well but as Decrypt is not access controlled or rate limited, it would be vulnerable to padding ORACLE attack.
 3. IV size is 96 bit
 4. Authentication tag size is 96 bit
-5. IV is returned in plain along with Encrypted data, with GCM this is considered safe unlike in CBC mode.
+5. IV is returned in plain along with Encrypted data, with GCM this is considered safe (unlike in CBC mode which is prone to clear IV attacks).
 
 ## References:
 Standard deviation calculation:
@@ -26,8 +26,17 @@ Standard deviation calculation:
 
 
 ## Steps:
+0. Install JDK (jdk-17.0.1) and maven (Apache Maven 3.8.4), set $JAVA_HOME
+```
+   JAVA_HOME=<Path to jdk's parent folder>/jdk-17.0.1
+```
 1. Clone The repo
-   
+```
+  mkdir -p $HOME/test
+  cd test
+  git clone https://github.com/vineet-garg/assignment-2.git
+  assignment-2
+```
 3. Build
 ```
 mvn clean
@@ -36,7 +45,7 @@ mvn package
 ```
 3. Run the server
 ```
-java -jar /home/vgarg1/workspace/crypto.webservice/target/crypto.webservice-0.0.1-SNAPSHOT.jar server server.yaml 
+$JAVA_HOMEbin/java -jar $HOME/test/assignment-2/target/crypto.webservice-0.0.1-SNAPSHOT.jar server server.yaml
 ```
 4. Sample curl commands and outputs
 ```
