@@ -26,11 +26,11 @@ Standard deviation calculation:
 
 
 ## Steps:
-0. Install JDK (jdk-17.0.1) and maven (Apache Maven 3.8.4), set $JAVA_HOME
+1. Install JDK (jdk-17.0.1) and maven (Apache Maven 3.8.4), set $JAVA_HOME
 ```
    export JAVA_HOME=<Path to jdk's parent folder>/jdk-17.0.1
 ```
-1. Clone The repo
+2. Clone The repo
 ```
   mkdir -p $HOME/test
   cd $HOME/test
@@ -40,35 +40,47 @@ Standard deviation calculation:
 3. Build
 ```
 mvn clean
+```
+```
 mvn test
+```
+```
+   .......
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 sec
+Running crypto.webservice.services.StatsSvcImplTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec
+
+Results :
+
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0
+```
+```
 mvn package
 ```
-3. Run the server
+4. Run the server
 ```
 $JAVA_HOME/bin/java -jar $HOME/test/assignment-2/target/crypto.webservice-0.0.1-SNAPSHOT.jar server server.yaml
 ```
-4. Sample curl commands and outputs
+5. Sample curl commands and outputs
 ```
 curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"num":2}'  http://0.0.0.0:8080/push-and-recalculate
 ```
-```
 {"avg":{"num":10.0},"sd":{"num":10.0}}
-```
+
 ```
 curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"num":20}'  http://0.0.0.0:8080/push-and-recalculate-encrypt
 ```
-```
 {"avg":{"cipherTxt":"AhDjGm/TwOar80AcickyZfAICokOwTPwTqbJZA==","keyId":"0"},"sd":{"cipherTxt":"5EOD9kTkti7XtTN2q6uhVHnQyYDsC1lAaLhNyg==","keyId":"0"}}
-```
+
 ```
 curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"cipherTxt":"AhDjGm/TwOar80AcickyZfAICokOwTPwTqbJZA==","keyId":"0"}'  http://0.0.0.0:8080/decrypt
 ```
-```
 {"num":13.333333}
-```
+
 ```
 curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"cipherTxt":"5EOD9kTkti7XtTN2q6uhVHnQyYDsC1lAaLhNyg==","keyId":"0"}'  http://0.0.0.0:8080/decrypt
 ```
-```
 {"num":9.428091}
-```
