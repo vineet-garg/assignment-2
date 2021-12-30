@@ -17,6 +17,7 @@ Access controlling, rate limiting and monitoring Encryption service along with a
 3. IV size is 96 bit
 4. Authentication tag size is 96 bit
 5. IV is returned in plain along with Encrypted data, with GCM this is considered safe (unlike in CBC mode which is prone to clear IV attacks).
+6. Encryption and decryption errors are not propagated to the clients, this can be usability tradeoff.
 
 ## References:
 Standard deviation calculation:
@@ -60,7 +61,7 @@ Tests run: 9, Failures: 0, Errors: 0, Skipped: 0
 ```
 mvn package
 ```
-4. Run the server
+4. Run the server (server properties like port numbers can be changed in server.yaml file)
 ```
 $JAVA_HOME/bin/java -jar $HOME/test/assignment-2/target/crypto.webservice-0.0.1-SNAPSHOT.jar server server.yaml
 ```
