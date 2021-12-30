@@ -35,7 +35,7 @@ Standard deviation calculation:
   mkdir -p $HOME/test
   cd test
   git clone https://github.com/vineet-garg/assignment-2.git
-  assignment-2
+  cd assignment-2
 ```
 3. Build
 ```
