@@ -17,6 +17,7 @@ import org.junit.Test;
 import crypto.webservice.api.PlainInt;
 import crypto.webservice.resources.ServerResource;
 import crypto.webservice.services.EncryptionSvc;
+import crypto.webservice.services.EncryptionSvcException;
 import crypto.webservice.services.EncryptionSvcImpl;
 import crypto.webservice.services.StatsSvc;
 import crypto.webservice.services.StatsSvcImpl;
@@ -60,7 +61,7 @@ public class ServerResourceTest {
 	}
 	
 	@Test
-	public void testPushRecalculateAndEncrypt_Decrypt_sd() throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException {
+	public void testPushRecalculateAndEncrypt_Decrypt_sd() throws EncryptionSvcException, NoSuchAlgorithmException, InvalidKeyException {
 		StatsSvc statsSvc = new StatsSvcImpl();
 		KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
 		keyGenerator.init(256);
@@ -78,7 +79,7 @@ public class ServerResourceTest {
 	}
 
 	@Test
-	public void testPushRecalculateAndEncrypt_Decrypt_avg() throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException {
+	public void testPushRecalculateAndEncrypt_Decrypt_avg() throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, EncryptionSvcException {
 		StatsSvc statsSvc = new StatsSvcImpl();
 		KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
 		keyGenerator.init(256);

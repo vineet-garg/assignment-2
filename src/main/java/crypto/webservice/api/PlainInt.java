@@ -1,6 +1,6 @@
 package crypto.webservice.api;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,9 +10,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * More fields cann be added in future while keeping it backward compatible
  */
 public class PlainInt {
-	@NotEmpty
-	private int num; 
-	
+
+    @NotNull
+	private Integer num; 
+
 	public PlainInt(){
         // Jackson deserialization
 	}

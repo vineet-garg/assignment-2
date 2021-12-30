@@ -18,7 +18,7 @@ import org.junit.Test;
 public class EncryptionSvcImplTest {
 
 	@Test
-	public void testEncrypt_Decrypt() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+	public void testEncrypt_Decrypt() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, EncryptionSvcException {
 		KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
 		keyGenerator.init(256);
 		SecretKey key = keyGenerator.generateKey();
@@ -28,7 +28,7 @@ public class EncryptionSvcImplTest {
 	}
 	
 	@Test
-	public void testEncrypt_Decrypt_InvalidKeyID() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+	public void testEncrypt_Decrypt_InvalidKeyID() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, EncryptionSvcException {
 		KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
 		keyGenerator.init(256);
 		SecretKey key = keyGenerator.generateKey();
@@ -36,7 +36,8 @@ public class EncryptionSvcImplTest {
 		byte[] plainBytes = "plain".getBytes();
 		try {
 		    esv.decrypt(esv.encrypt(plainBytes, "1"),"0");
-		} catch (Exception e){
+		    fail("Invalid keyId");
+		} catch (IllegalArgumentException e){
 			// good exception
 		}
 	}
@@ -50,7 +51,7 @@ public class EncryptionSvcImplTest {
 		try {
 		    esv.decrypt("some random text", "0");
 		    fail("decrypting just random bytes will not work");
-		} catch (Exception e) {
+		} catch (EncryptionSvcException e) {
 			// good exception
 		}
 	}

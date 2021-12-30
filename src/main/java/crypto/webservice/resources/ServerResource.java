@@ -2,12 +2,15 @@ package crypto.webservice.resources;
 
 import java.nio.ByteBuffer;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response.Status;
 
 import crypto.webservice.api.EncryptedFloat;
 import crypto.webservice.api.EncryptedStats;
@@ -15,9 +18,8 @@ import crypto.webservice.api.PlainFloat;
 import crypto.webservice.api.PlainInt;
 import crypto.webservice.api.PlainStats;
 import crypto.webservice.services.EncryptionSvc;
+import crypto.webservice.services.EncryptionSvcException;
 import crypto.webservice.services.StatsSvc;
-
-//TODO Input validation
 
 @Path("")
 public class ServerResource {
@@ -46,7 +48,7 @@ public class ServerResource {
 	@Path("/push-and-recalculate")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public PlainStats pushAndRecalculate(@NotNull PlainInt i) {
+	public PlainStats pushAndRecalculate(@NotNull @Valid PlainInt i) {
 		return statsSvc.getRunningStats(i.getNum());
 	}
 	
@@ -64,14 +66,24 @@ public class ServerResource {
 	@Path("/push-and-recalculate-encrypt")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public EncryptedStats pushRecalculateAndEncrypt(@NotNull PlainInt i) {
+	public EncryptedStats pushRecalculateAndEncrypt(@NotNull @Valid PlainInt i) {
 		PlainStats ps = pushAndRecalculate(i);
 		
 		byte[] avgBytes = ByteBuffer.allocate(4).putFloat(ps.getAvg().getNum()).array();
-		String encryptedAvg = encSvc.encrypt(avgBytes, keyID);
+		String encryptedAvg;
+		try {
+			encryptedAvg = encSvc.encrypt(avgBytes, keyID);
+		} catch (EncryptionSvcException e) {
+			throw new WebApplicationException(e.getMessage(), e);
+		}
 		
 		byte[] sdBytes = ByteBuffer.allocate(4).putFloat(ps.getSd().getNum()).array();
-		String encryptedSd = encSvc.encrypt(sdBytes, keyID);
+		String encryptedSd;
+		try {
+			encryptedSd = encSvc.encrypt(sdBytes, keyID);
+		} catch (EncryptionSvcException e) {
+			throw new WebApplicationException(e.getMessage(), e);
+		}
 		EncryptedFloat avg = new EncryptedFloat(encryptedAvg, keyID);
 		EncryptedFloat sd = new EncryptedFloat(encryptedSd, keyID);
 		return new EncryptedStats(avg, sd);
@@ -89,12 +101,21 @@ public class ServerResource {
 	// Note: There is an ambiguity wrt signature of this API in the requirement doc.
 	// It says "An" encrypted Number and at the same time output of API 2. The output of API2 is not a single number
 	// but 2 numbers. Assuming the requirement as single number.
-	public PlainFloat Decrypt(@NotNull EncryptedFloat s) {
+	public PlainFloat Decrypt(@NotNull @Valid EncryptedFloat s) {
+		if (!encSvc.isKeyValid(s.getKeyId())) {
+			throw new WebApplicationException("Key ID is Invalid", Status.BAD_REQUEST);
+		}
 	    if (s.getCipherTxt().length() != encSvc.getExtraBytes(s.getKeyId()) + FLOAT_BASE64_BYTE_SIZE) {
 	    	// Note: This check prevents encryption service from trying to decrypt very large invalid input
-	    	throw new RuntimeException("Error While Encrypting/Decrypting: Check the Input Or Server logs");
+	    	EncryptionSvcException e = new EncryptionSvcException();
+	    	throw new WebApplicationException(e.getMessage(), e);
 	    }
-		byte[] plainBytes = encSvc.decrypt(s.getCipherTxt(), s.getKeyId());
+		byte[] plainBytes;
+		try {
+			plainBytes = encSvc.decrypt(s.getCipherTxt(), s.getKeyId());
+		} catch (EncryptionSvcException e) {
+			throw new WebApplicationException(e.getMessage(), e);
+		}
 		float f = ByteBuffer.wrap(plainBytes).getFloat();
 		return new PlainFloat(f);
 	}

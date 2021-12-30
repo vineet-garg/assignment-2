@@ -1,14 +1,14 @@
 package crypto.webservice.api;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EncryptedStats {
-	@NotEmpty
+	@NotNull
 	private EncryptedFloat avg ;
 	
-	@NotEmpty
+	@NotNull
 	private EncryptedFloat sd;
 	
 	public EncryptedStats() {

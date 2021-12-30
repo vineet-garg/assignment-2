@@ -1,20 +1,20 @@
 package crypto.webservice.services;
 
-import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class EncryptionSvcImpl implements EncryptionSvc {
+	private static final Logger LOGGER = LoggerFactory.getLogger(EncryptionSvcImpl.class);
 	
 	// TODO make encryption params configurable for better crypto agility
 	private static final String ALGO = "AES";
@@ -33,7 +33,7 @@ public class EncryptionSvcImpl implements EncryptionSvc {
 		this.keyId = keyId;
 	}
 	
-	public String encrypt(byte[] b, String keyId) {
+	public String encrypt(byte[] b, String keyId) throws EncryptionSvcException {
 		if (!keyId.equals(this.keyId)) {
 			throw new IllegalArgumentException("keyId: " + keyId + " is not valid." );
 		}
@@ -50,14 +50,15 @@ public class EncryptionSvcImpl implements EncryptionSvc {
 		    byte[] encVal = c1.doFinal(b);
 		    encryptedValue = Base64.getEncoder().encodeToString(encVal);
 		    ivValue = Base64.getEncoder().encodeToString(iv);
-		} catch (NoSuchPaddingException| InvalidAlgorithmParameterException| BadPaddingException| IllegalBlockSizeException| InvalidKeyException| NoSuchAlgorithmException e) {
-			// TODO Do not return the underlying error, Return a vague error , and log the actual one.
-			throw new RuntimeException("Error While Encrypting/Decrypting: Check your Input Or Server logs");
+		} catch (Exception e) {
+			//NOTE: Do not return the underlying error, Return a vague error , and log the actual one.
+			LOGGER.error("Error while encrypting", e);
+			throw new EncryptionSvcException();
 		}
 		return ivValue + encryptedValue;
 	}
 	
-	public byte[] decrypt(String ciphertext, String keyId) {
+	public byte[] decrypt(String ciphertext, String keyId) throws EncryptionSvcException {
 		if (!keyId.equals(this.keyId)) {
 			throw new IllegalArgumentException("keyId: " + keyId + " is invalid." );
 	    }
@@ -72,9 +73,10 @@ public class EncryptionSvcImpl implements EncryptionSvc {
 		    c2.init(Cipher.DECRYPT_MODE, key, gcmSpec);
 		    byte[] b = Base64.getDecoder().decode(ciphertext);
 		    plainBytes = c2.doFinal(b);
-		} catch (NoSuchPaddingException| InvalidAlgorithmParameterException| BadPaddingException| IllegalBlockSizeException| InvalidKeyException| NoSuchAlgorithmException e) {
-			// TODO Do not return the underlying error, Return a vague error , and log the actual one.
-			throw new RuntimeException("Error While Encrypting/Decrypting: Check your Input Or Server logs");
+		} catch (Exception e) {
+			//NOTE: Do not return the underlying error, Return a vague error , and log the actual one.
+			LOGGER.info("Error while decrypting", e);
+			throw new EncryptionSvcException();
 		}
 		return plainBytes;
 	}
@@ -84,5 +86,13 @@ public class EncryptionSvcImpl implements EncryptionSvc {
 			throw new IllegalArgumentException("keyId: " + keyId + " is invalid." );
 	    }
 		return GCM_IV_BASE64_SIZE/8  + GCM_TAG_BASE64_LENGTH/8;
+	}
+
+	@Override
+	public boolean isKeyValid(String keyId) {
+		if (keyId.equals(this.keyId)) {
+			return true;
+		}
+		return false;
 	}
 }
