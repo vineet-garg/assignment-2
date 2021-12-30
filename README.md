@@ -72,7 +72,7 @@ curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -
 {"avg":{"num":10.0},"sd":{"num":10.0}}
 
 ```
-curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"num":20}'  http://0.0.0.0:8080/push-and-recalculate-encrypt
+curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"num":20}'  http://0.0.0.0:8080/push-recalculate-and-encrypt
 ```
 {"avg":{"cipherTxt":"AhDjGm/TwOar80AcickyZfAICokOwTPwTqbJZA==","keyId":"0"},"sd":{"cipherTxt":"5EOD9kTkti7XtTN2q6uhVHnQyYDsC1lAaLhNyg==","keyId":"0"}}
 

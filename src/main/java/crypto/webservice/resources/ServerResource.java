@@ -63,7 +63,7 @@ public class ServerResource {
 	 * KeyId identifying the key used for encryption is also part of the returned data.
 	 */
 	@POST
-	@Path("/push-and-recalculate-encrypt")
+	@Path("/push-recalculate-and-encrypt")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public EncryptedStats pushRecalculateAndEncrypt(@NotNull @Valid PlainInt i) {

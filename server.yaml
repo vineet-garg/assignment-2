@@ -1,5 +1,10 @@
+# Hexadecimal representation of AES-256 bit key---
 key : C0BAE23DF8B51807B3E17D21925FADF273A70181E1D81B8EDE6C76A5C1F1716E
+
+# ID of the above key
 keyId: "0"
+
+# server properties
 server:
   applicationConnectors:
   - type: http
