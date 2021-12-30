@@ -33,7 +33,7 @@ Standard deviation calculation:
 1. Clone The repo
 ```
   mkdir -p $HOME/test
-  cd test
+  cd $HOME/test
   git clone https://github.com/vineet-garg/assignment-2.git
   cd assignment-2
 ```
@@ -61,7 +61,7 @@ curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -
 {"avg":{"cipherTxt":"AhDjGm/TwOar80AcickyZfAICokOwTPwTqbJZA==","keyId":"0"},"sd":{"cipherTxt":"5EOD9kTkti7XtTN2q6uhVHnQyYDsC1lAaLhNyg==","keyId":"0"}}
 ```
 ```
-curl -H "Accept: aype: application/json" -X POST -d '{"cipherTxt":"AhDjGm/TwOar80AcickyZfAICokOwTPwTqbJZA==","keyId":"0"}'  http://0.0.0.0:8080/decrypt
+curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"cipherTxt":"AhDjGm/TwOar80AcickyZfAICokOwTPwTqbJZA==","keyId":"0"}'  http://0.0.0.0:8080/decrypt
 ```
 ```
 {"num":13.333333}
