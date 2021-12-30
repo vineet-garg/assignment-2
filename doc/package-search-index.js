@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"crypto.webservice.api"},{"l":"crypto.webservice.resources"}];updateSearchResults();
