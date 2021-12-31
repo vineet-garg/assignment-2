@@ -21,9 +21,10 @@ Access controlling, rate limiting and monitoring Encryption service along with a
 
 ## References:
 Standard deviation calculation:
-1. [Welford's online algorithm on wikipedia](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance).
+- [Welford's online algorithm on wikipedia](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance).
+
 Encryption:
-2. AES-GCM: [NIST SP-800 38D](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf).
+- AES-GCM: [NIST SP-800 38D](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf).
 
 
 
