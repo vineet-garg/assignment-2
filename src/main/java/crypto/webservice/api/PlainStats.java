@@ -30,7 +30,7 @@ public class PlainStats {
 	}
 
 	/**
-	 * @return PlainFloat value of running Standard Deviation
+	 * @return PlainFloat value of running standard deviation
 	 */
 	@JsonProperty
 	public PlainFloat getSd() {

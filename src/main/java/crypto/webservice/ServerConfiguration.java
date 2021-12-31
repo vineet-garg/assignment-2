@@ -9,7 +9,7 @@ import io.dropwizard.Configuration;
 public class ServerConfiguration extends Configuration {
 
 	/**
-	 * Hexadecimal excoded value of 256 bit AES key
+	 * Hexadecimal encoded value of 256 bit AES key
 	 */
 	@NotEmpty
 	private String key;
@@ -34,7 +34,7 @@ public class ServerConfiguration extends Configuration {
 	}
 
 	/**
-	 * Hexadecimal excoded value of 256 bit AES key
+	 * Hexadecimal encoded value of 256 bit AES key
 	 */
 	@JsonProperty
 	public String getKey() {
@@ -42,7 +42,7 @@ public class ServerConfiguration extends Configuration {
 	}
 
 	/**
-	 * Hexadecimal excoded value of 256 bit AES key
+	 * Hexadecimal encoded value of 256 bit AES key
 	 */
 	@JsonProperty
 	public void setKey(String key) {

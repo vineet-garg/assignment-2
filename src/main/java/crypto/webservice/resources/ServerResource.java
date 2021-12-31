@@ -42,8 +42,7 @@ public class ServerResource {
 	 * average and running standard deviation. The calculations are done using
 	 * Welford's online algorithm. Individual numbers are not saved.
 	 * 
-	 * @param i
-	 *            any 32 bit integer
+	 * @param i PlainInt of any 32 bit integer
 	 * @return Stats (running average and running standard deviation) in plain
 	 */
 	@POST
@@ -56,12 +55,11 @@ public class ServerResource {
 
 	/**
 	 * Adds input integer into the running metrics and returns new running
-	 * average and running standard deviation in Encrypted form The calculations
+	 * average and running standard deviation in encrypted form. The calculations
 	 * are done using Welford's online algorithm. Individual numbers are not
 	 * saved.
 	 * 
-	 * @param i
-	 *            PlainInt wrapper of any 32 bit integer
+	 * @param i PlainInt wrapper of any 32 bit integer
 	 * @return EncryptedStats containing EncryptedFloat values of running
 	 *         average and running standard deviation. KeyId identifying the key
 	 *         used for encryption is also part of the returned data.
@@ -106,18 +104,18 @@ public class ServerResource {
 	@Path("/decrypt")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	// Note: There is an ambiguity wrt signature of this API in the requirement
-	// doc.
+	// Note: There is an ambiguity with respect to signature of this API in the requirement
+	// document.
 	// It says "An" encrypted Number and at the same time output of API 2. The
-	// output of API2 is not a single number
-	// but 2 numbers. Assuming the requirement as single number.
+	// output of API 2 is not "A" single number but "2" numbers. 
+	// Assuming the requirement as "A" single number.
 	public PlainFloat Decrypt(@NotNull @Valid EncryptedFloat s) {
 		if (!encSvc.isKeyValid(s.getKeyId())) {
 			throw new WebApplicationException("Key ID is Invalid", Status.BAD_REQUEST);
 		}
 		if (s.getCipherTxt().length() != encSvc.getExtraBytes(s.getKeyId()) + FLOAT_BASE64_BYTE_SIZE) {
 			// Note: This check prevents encryption service from trying to
-			// decrypt very large invalid input
+			// decrypt very large INVALID input
 			EncryptionSvcException e = new EncryptionSvcException();
 			throw new WebApplicationException(e.getMessage(), e);
 		}

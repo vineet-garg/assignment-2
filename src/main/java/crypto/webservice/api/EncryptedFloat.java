@@ -22,7 +22,7 @@ public class EncryptedFloat {
 	}
 
 	/**
-	 * @return encrypted float and iv encoded in the same string
+	 * @return encrypted float and IV encoded in the same string
 	 */
 	@JsonProperty
 	public String getCipherTxt() {
@@ -38,7 +38,7 @@ public class EncryptedFloat {
 	 * KeyID with which the encryption was done. Note: This will be useful while
 	 * doing a phased rotation of keys or moving to a new algorithm.
 	 * 
-	 * @return
+	 * @return keyId
 	 */
 	@JsonProperty
 	public String getKeyId() {

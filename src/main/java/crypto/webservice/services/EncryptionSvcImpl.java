@@ -36,7 +36,7 @@ public class EncryptionSvcImpl implements EncryptionSvc {
 	@Override
 	public String encrypt(byte[] b, String keyId) throws EncryptionSvcException {
 		if (!keyId.equals(this.keyId)) {
-			throw new IllegalArgumentException("keyId: " + keyId + " is not valid.");
+			throw new IllegalArgumentException("keyId is invalid.");
 		}
 		String ivValue = "";
 		String encryptedValue = "";
@@ -63,7 +63,7 @@ public class EncryptionSvcImpl implements EncryptionSvc {
 	@Override
 	public byte[] decrypt(String ciphertext, String keyId) throws EncryptionSvcException {
 		if (!keyId.equals(this.keyId)) {
-			throw new IllegalArgumentException("keyId: " + keyId + " is invalid.");
+			throw new IllegalArgumentException("keyId is invalid.");
 		}
 
 		byte[] plainBytes;
@@ -77,7 +77,7 @@ public class EncryptionSvcImpl implements EncryptionSvc {
 			byte[] b = Base64.getDecoder().decode(ciphertext);
 			plainBytes = c2.doFinal(b);
 		} catch (Exception e) {
-			// NOTE: Do not return the underlying error, Return a vague error ,
+			// NOTE: Do not return the underlying error, return a vague error,
 			// and log the actual one.
 			LOGGER.info("Error while decrypting", e);
 			throw new EncryptionSvcException();
@@ -88,7 +88,7 @@ public class EncryptionSvcImpl implements EncryptionSvc {
 	@Override
 	public int getExtraBytes(String keyId) {
 		if (!keyId.equals(this.keyId)) {
-			throw new IllegalArgumentException("keyId: " + keyId + " is invalid.");
+			throw new IllegalArgumentException("keyId is invalid.");
 		}
 		return GCM_IV_BASE64_SIZE / 8 + GCM_TAG_BASE64_LENGTH / 8;
 	}

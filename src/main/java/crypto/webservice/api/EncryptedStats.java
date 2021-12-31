@@ -30,7 +30,7 @@ public class EncryptedStats {
 	}
 
 	/**
-	 * @return EncryptedFloat value of running Standard Deviation
+	 * @return EncryptedFloat value of running standard deviation
 	 */
 	@JsonProperty
 	public EncryptedFloat getSd() {

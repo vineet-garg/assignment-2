@@ -16,8 +16,8 @@ public class Server extends Application<ServerConfiguration> {
 	public void run(ServerConfiguration config, Environment env) throws Exception {
 		byte[] keyValue = DatatypeConverter.parseHexBinary(config.getKey());
 
-		// Exception if any from initialization of Encryption Service is being
-		// propodated
+		// Exception, if any, from initialization of Encryption Service is propagated
+		
 		EncryptionSvc encSvc = new EncryptionSvcImpl(keyValue, config.getKeyId());
 		StatsSvc statsSvc = new StatsSvcImpl();
 		final ServerResource resource = new ServerResource(statsSvc, encSvc, config.getKeyId());

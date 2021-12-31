@@ -2,7 +2,7 @@ package crypto.webservice.services;
 
 /**
  * Service that provides encryption and decryption of data. Data is treated as
- * an opaqu value of any size.
+ * an opaque value of any size.
  */
 public interface EncryptionSvc {
 
@@ -34,9 +34,8 @@ public interface EncryptionSvc {
 	public byte[] decrypt(String ciphertext, String keyId) throws EncryptionSvcException;
 
 	/**
-	 * Returns Extra bytes of data a particular encryption identified by keyId
-	 * adds. Clients should use this method to validate the input before
-	 * invoking decrypt.
+	 * Returns count of extra bytes of data a particular encryption, identified by keyId, adds.
+	 * Clients should use this method to validate the input before invoking decrypt.
 	 * 
 	 * @param keyId
 	 *            String value that specifies the key.

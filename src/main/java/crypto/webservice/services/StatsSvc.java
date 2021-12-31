@@ -8,11 +8,11 @@ import crypto.webservice.api.PlainStats;
  */
 public interface StatsSvc {
 	/**
-	 * Calulates new average and standard deviation incorporating the new number
+	 * Calculates new average and standard deviation incorporating the new number
 	 * given.
 	 * 
 	 * @param num
-	 *            int value of new number. Support -ve numbers as well.
+	 *            int value of new number. Supports -ve numbers as well.
 	 * @return PlainStats value composing of PlainFloat values of new average
 	 *         and standard deviation.
 	 */
